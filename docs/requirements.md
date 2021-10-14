@@ -1,21 +1,21 @@
 # The TimeFlo Project: Requirements Document
-*Author Name 2021*
+*Andrew Free 2021*
 
 (*Thanks to Chris Gilmore for the document template for this
 document.*)
 
 ## Introduction
 
-*Introduce this document and the project it describes. You should also
-summarize the remaining content of the document here.*
+The goal of this project is to create software to help a user manage time by implmenting a technique developed by Francesco Cirilo.
 
 ### Purpose and Scope
 
-*You should describe this document by giving its purpose, scope.*
+The technique breaks down work intervals into small 25 min segments followed by 5-10 min breaks. After completing at least 3 of these work/break intervals a 20-30 min break should be taken. The goal of this software is to help force the user to take breaks and break out of their flow state (also to get into the flow state).
+This is useful in development as it can be easy to get stuck in a flow state while working leading you to dig into the weeds and loose the bigger picture.
 
 ### Target Audience
 
-*Describe the target audience for this document.*
+The target audience is myself although the software should be useable and easy to setup/run for anyone else who whishes to use it.
 
 ### Terms and Definitions
 
@@ -24,40 +24,17 @@ document.*
 
 ## Product Overview
 
+The project will be written in Python. It will use either a Qt GUI for the timer or a webpage (undecided). The software should be easy to set up and use for anyone wishing to utilize it. 
+
 *Give a high level description of the functionality of the project here.
 Describe the purpose of this section. It may be useful to give your
 definition of a user, a stake holder and a use case. If there are scope
 limitations to the project, i.e. things you will not be doing, or are
 not required to do, this is a good section to put those.*
 
-### Users and Stakeholders
-
-*Describe the purpose of this section. Only a few sentences are expected
-here.*
-
-#### *Stakeholder 1*
-
-*List the first stakeholder or class of stakeholders if necessary.
-Describe, exactly, their role in the development, deployment, use,
-maintenance, etc. of the software.*
-
-#### *Stakeholder 2*
-
-*Etc.*
-
 ### Use cases
 
-*Describe the purpose of this section. Only a few sentences are expected
-here.*
-
-#### *Use Case 1*
-
-*Describe the first use case here. Be sure to explicitly identify the
-participants, human or otherwise, and explain their roles.*
-
-#### *Use Case 2*
-
-*Etc.*
+Use cases can be anytime you are working on a bigger project and need some software to help you both get into and out of the flow state. In development you want to be able to get into a flow state while working but also have time set to break out and allow yourself to see the bigger picture / give yourself a chance to take a break.
 
 ## Functional Requirements
 
