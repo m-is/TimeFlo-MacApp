@@ -13,7 +13,7 @@ for this document.*)
 4. For development, a computer running OSX version 10.15.7 as the latest apple operating systems are inherently unstable from my experience. 
 5. pip, a python package manager (version 18.1)
 6. Flake8, a linter for python code to help improve code quality and catch errors
-7. An alarm sound from https://freesound.org/. A fog horn specifically
+7. An alarm sound from https://freesound.org/people/CGEffex/sounds/94678/. A fog horn specifically 
 
 
 ## Work Breakdown
