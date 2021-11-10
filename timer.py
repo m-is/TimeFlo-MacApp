@@ -1,6 +1,6 @@
 """
     File name: timer.py
-    Author: Andrew Free 
+    Author: Andrew Free
     Date created: -
     Python Version: 3.6
     Alert Sounds Credits: https://freesound.org/people/CGEffex/sounds/94678/
