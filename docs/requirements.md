@@ -53,7 +53,7 @@ The program should launch a program with 4 interface elements when run.
 
 The program will have two constants at the top of the timer.py file to control behavior
 1. A constant that defines how long a long break is (default 25).
-2. A constant that defines how many work/short break cycles are completed until a long break starts. (default 3).
+2. A constant that defines how many work cycles are completed until a long break starts. (default 3).
 
 ## Extra-functional Requirements
 
