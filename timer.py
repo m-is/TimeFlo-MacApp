@@ -16,8 +16,8 @@ from PyQt5 import QtCore
 from ui import Ui
 
 
-LONG_BREAK_TIME_MIN = 1
-WORK_UNIT_TIME_MIN = 1
+LONG_BREAK_TIME_MIN = 25
+WORK_UNIT_TIME_MIN = 25
 CYCLES_UNTIL_LONG_BREAK = 3
 
 
@@ -33,7 +33,7 @@ class Timer(QDialog):
 
         self.task_count = 1
         self.alert_sound = "fog_alarm.wav"
-        self.short_break_time = lambda: random.randrange(1, 2)
+        self.short_break_time = lambda: random.randrange(5, 11)
         self.task_break = None
         self.my_timer = QtCore.QTimer()
 
