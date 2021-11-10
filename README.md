@@ -5,22 +5,41 @@ TimeFlo is an implementation of a
 [Pomodoro&reg;](https://en.wikipedia.org/wiki/Pomodoro_Technique)-like
 timer for breaking out of flow state.
 
-*Description of your TimeFlo timer.*
-
+This document will help you get the dependencies installed and instruct the user how to run the timer program. 
 ## Status and Roadmap
 
-*Status of the MVP. Describe what works and what
-doesn't. Describe "future work" for this project.*
-
-* [ ] Requirements complete.
-* [ ] Project plan complete.
-* [ ] Design complete.
-* [ ] Implementation complete.
-* [ ] Validation complete.
+* [X] Requirements complete.
+* [X] Project plan complete.
+* [X] Design complete.
+* [X] Implementation complete.
+* [X] Validation complete.
 
 ## Build and Run
 
-*Instructions to build and run your project.*
+1. Create a python virtual enviroment.
+```python3 -m venv env```
+2. Activate the enviroment.
+```source ./env/bin/activate```
+3. Install the requirements 
+```pip install -r requirements.txt```
+4. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser.  
+```python timer.py```
+5. A Qt window should pop up and you should be able to interact with the timer from there.
+
+## Testing
+
+To run tests, go to the root directory and run. It will run through all the state changes.
+```
+python -m pytest
+```
+
+## Licensing
+
+This program includes the LGPL V3 license for usage of Qt
+
+## Interface 
+
+<p align="center"><img src="screenshots/interface.png"></p>
 
 ## Development Docs
 
