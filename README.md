@@ -28,7 +28,7 @@ This document will help you get the dependencies installed and instruct the user
 
 ## Testing
 
-To run tests, go to the root directory and run. It will run through all the state changes.
+To run tests, go to the root directory and run the command below. It will run through all the state changes. Given the fact that it fully tests the time required to step through everything these tests could take a while to run.
 ```
 python -m pytest
 ```
