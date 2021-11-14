@@ -22,9 +22,9 @@ This document will help you get the dependencies installed and instruct the user
 ```source ./env/bin/activate```
 3. Install the requirements 
 ```pip install -r requirements.txt```
-4. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser.  
+4. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser. 
 ```python timer.py```
-5. A Qt window should pop up and you should be able to interact with the timer from there.
+5. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
 
 ## Testing
 
