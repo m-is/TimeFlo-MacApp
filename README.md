@@ -20,11 +20,13 @@ This document will help you get the dependencies installed and instruct the user
 ```python3 -m venv env```
 2. Activate the enviroment.
 ```source ./env/bin/activate```
-3. Install the requirements 
+3. Upgrade pip
+```pip install --upgrade pip```
+4. Install the requirements 
 ```pip install -r requirements.txt```
-4. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser. 
+5. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser. 
 ```python timer.py```
-5. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
+6. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
 
 ## Testing
 
