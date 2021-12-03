@@ -18,6 +18,12 @@ class Ui(object):
         self.lcd_number.setGeometry(QtCore.QRect(60, 40, 251, 141))
         self.lcd_number.setObjectName("lcdNumber")
 
+        self.change_timer = QtWidgets.QPushButton(Dialog)
+        self.change_timer.setGeometry(QtCore.QRect(130, 260, 150, 32))
+        self.change_timer.setObjectName("changeTimer")
+
+        
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -26,3 +32,4 @@ class Ui(object):
         Dialog.setWindowTitle(_translate("Dialog", "TimeFlo"))
         self.start_timer.setText(_translate("Dialog", "Start Timer"))
         self.end_timer.setText(_translate("Dialog", "Quit Timer"))
+        self.change_timer.setText(_translate("Dialog", "Change Timer"))

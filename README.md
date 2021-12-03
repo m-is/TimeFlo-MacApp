@@ -20,11 +20,7 @@ This document will help you get the dependencies installed and instruct the user
 ```python3 -m venv env```
 2. Activate the enviroment.
 ```source ./env/bin/activate```
-<<<<<<< HEAD
-3. Update pip.
-=======
 3. Upgrade pip
->>>>>>> d1759175d2a2b1cac8f4e898c8e44cdc7bae6fd9
 ```pip install --upgrade pip```
 4. Install the requirements 
 ```pip install -r requirements.txt```
