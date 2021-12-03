@@ -9,7 +9,7 @@ import random
 import sys
 
 from playsound import playsound
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QInputDialog, QLineEdit
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore
 
@@ -39,7 +39,12 @@ class Timer(QDialog):
 
         self.ui.start_timer.clicked.connect(lambda: self.on_start_clicked())
         self.ui.end_timer.clicked.connect(lambda: self.on_end_clicked())
+        self.ui.change_timer.clicked.connect(lambda: self.on_change_clicked())
+        
+
+
         self.ui.lcd_number.display(WORK_UNIT_TIME_MIN)
+
 
     def countdown(self):
         self.ui.lcd_number.display(self.ui.lcd_number.intValue() - 1)
@@ -87,6 +92,12 @@ class Timer(QDialog):
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
         self.my_timer.start(60000)  # 1 min in milliseconds
+
+    def on_change_clicked(self):
+        num, result = QInputDialog.getInt(self, 'Timer Length Input Dialog', 'Enter the timer length:')
+
+            
+
 
 
 if __name__ == "__main__":
