@@ -20,6 +20,9 @@ LONG_BREAK_TIME_MIN = 25
 WORK_UNIT_TIME_MIN = 25
 CYCLES_UNTIL_LONG_BREAK = 3
 
+MINUTE_MS = 60000
+SPEED_MULTIPLIER = 100 # [1 for normal speed]
+
 
 class Timer(QDialog):
     """
@@ -86,7 +89,7 @@ class Timer(QDialog):
 
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
-        self.my_timer.start(60000)  # 1 min in milliseconds
+        self.my_timer.start(MINUTE_MS/SPEED_MULTIPLIER)  # 1 min in milliseconds
 
 
 if __name__ == "__main__":
