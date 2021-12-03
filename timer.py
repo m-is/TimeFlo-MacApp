@@ -89,7 +89,7 @@ class Timer(QDialog):
 
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
-        self.my_timer.start(MINUTE_MS/SPEED_MULTIPLIER)  # 1 min in milliseconds
+        self.my_timer.start(round(MINUTE_MS/SPEED_MULTIPLIER))  # 1 min in milliseconds
 
 
 if __name__ == "__main__":
