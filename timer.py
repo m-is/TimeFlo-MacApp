@@ -31,6 +31,7 @@ class Timer(QDialog):
         self.ui = Ui()
         self.ui.setupUi(self)
 
+    #   self.break_time = 0
         self.task_count = 1
         self.alert_sound = "fog_alarm.wav"
         self.short_break_time = lambda: random.randrange(5, 11)
@@ -40,6 +41,7 @@ class Timer(QDialog):
         self.ui.start_timer.clicked.connect(lambda: self.on_start_clicked())
         self.ui.end_timer.clicked.connect(lambda: self.on_end_clicked())
         self.ui.change_timer.clicked.connect(lambda: self.on_change_clicked())
+        self.ui.change_break.clicked.connect(lambda: self.on_break_clicked())
         
 
 
@@ -70,6 +72,7 @@ class Timer(QDialog):
             self.ui.lcd_number.setStyleSheet("color: red;")
 
             self.ui.lcd_number.display(self.short_break_time())
+        #   self.ui.lcd_number.display(self.break_time())
             self.my_timer.disconnect()
             playsound(self.alert_sound)
             return
@@ -94,7 +97,16 @@ class Timer(QDialog):
         self.my_timer.start(60000)  # 1 min in milliseconds
 
     def on_change_clicked(self):
-        num, result = QInputDialog.getInt(self, 'Timer Length Input Dialog', 'Enter the timer length:')
+        num, result = QInputDialog.getInt(self, 'Work Timer Length Input Dialog', 'Enter the work timer length:')
+        if result == True:
+            self.ui.lcd_number.display(num)
+
+    def on_break_clicked(self):
+        num, result = QInputDialog.getInt(self, 'Break Timer Length Input Dialog', 'Enter the break timer length:')
+        if result == True:
+            self.break_time = num
+        return
+            
 
             
 
