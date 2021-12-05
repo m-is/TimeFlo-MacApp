@@ -29,8 +29,8 @@ Universal
 ```python timer.py```
 6. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
 
-M1 Mac users
-if
+M1 Mac users  
+If
 ```pip install -r requirements.txt```
 fails to install PyQt5:
 1. Install Qt 
