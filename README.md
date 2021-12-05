@@ -16,7 +16,6 @@ This document will help you get the dependencies installed and instruct the user
 
 ## Build and Run
 
-Universal
 1. Create a python virtual enviroment.
 ```python3 -m venv env```
 2. Activate the enviroment.
@@ -29,8 +28,7 @@ Universal
 ```python timer.py```
 6. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
 
-M1 Mac users  
-If
+M1 Mac users: If
 ```pip install -r requirements.txt```
 fails to install PyQt5:
 1. Install Qt 
