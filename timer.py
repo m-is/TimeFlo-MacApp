@@ -51,7 +51,7 @@ class Timer(QDialog):
     def countdown(self):
         self.ui.lcd_number.display(self.ui.lcd_number.intValue() - 1)
 
-        if self.ui.lcd_number.intValue() == 0 and self.task_break in [True, None]: #previously elif
+        if self.ui.lcd_number.intValue() <= 0 and self.task_break in [True, None]: #previously elif
             # Regular Break code
             self.task_break = False
             self.ui.start_timer.setText("Start Break")
@@ -63,7 +63,7 @@ class Timer(QDialog):
             self.change_allowed = True                          # allows change buttons to work after timer finishes
             return
 
-        elif self.ui.lcd_number.intValue() == 0 and self.task_break is False:
+        elif self.ui.lcd_number.intValue() <= 0 and self.task_break is False:
             # Start task code
             self.task_break = True
             self.task_count += 1
