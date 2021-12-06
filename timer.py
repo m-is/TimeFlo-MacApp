@@ -106,6 +106,8 @@ class Timer(QDialog):
         sys.exit()
 
     def on_start_clicked(self):
+        if not self.change_allowed:
+            return
         self.my_timer.timeout.connect(lambda: self.countdown())
         self.my_timer.start(
             round(SECOND_MS / SPEED_MULTIPLIER)
