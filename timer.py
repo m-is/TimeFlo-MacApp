@@ -17,8 +17,8 @@ from PyQt5 import QtCore
 from ui import Ui
 
 
-MINUTE_MS = 60000
-SPEED_MULTIPLIER = 100  # [1 for normal speed]
+SECOND_MS = 1000
+SPEED_MULTIPLIER = 1  # [1 for normal speed]
 
 
 class Timer(QDialog):
@@ -108,8 +108,8 @@ class Timer(QDialog):
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
         self.my_timer.start(
-            round(MINUTE_MS / SPEED_MULTIPLIER)
-        )  # 1 min in milliseconds
+            round(SECOND_MS / SPEED_MULTIPLIER)
+        )  # 1 second in milliseconds
 
         self.change_allowed = (
             False  # change buttons will not work when timer is operating
