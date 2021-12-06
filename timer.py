@@ -18,7 +18,7 @@ from ui import Ui
 
 
 MINUTE_MS = 60000
-SPEED_MULTIPLIER = 100 # [1 for normal speed]
+SPEED_MULTIPLIER = 200 # [1 for normal speed]
 
 
 class Timer(QDialog):
@@ -32,8 +32,8 @@ class Timer(QDialog):
         self.ui.setupUi(self)
         
         self.change_allowed = True          # whether or not change buttons can be clicked
-        self.break_time = 0     
-        self.work_unit_time_min = 0
+        self.break_time = 5
+        self.work_unit_time_min = 20
         self.task_count = 1
         self.alert_sound = "fog_alarm.wav"
         self.task_break = None
