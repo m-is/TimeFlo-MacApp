@@ -16,9 +16,6 @@ from PyQt5 import QtCore
 from ui import Ui
 
 
-# LONG_BREAK_TIME_MIN = 25
-# WORK_UNIT_TIME_MIN = 25
-CYCLES_UNTIL_LONG_BREAK = 3
 
 
 class Timer(QDialog):
@@ -31,12 +28,11 @@ class Timer(QDialog):
         self.ui = Ui()
         self.ui.setupUi(self)
         
-        
-        self.break_time = 0
+        self.change_allowed = True          # whether or not change buttons can be clicked
+        self.break_time = 0     
         self.work_unit_time_min = 0
         self.task_count = 1
         self.alert_sound = "fog_alarm.wav"
-    #   self.short_break_time = lambda: random.randrange(5, 11)
         self.task_break = None
         self.my_timer = QtCore.QTimer()
 
@@ -46,27 +42,11 @@ class Timer(QDialog):
         self.ui.change_break.clicked.connect(lambda: self.on_break_clicked())
         
 
-
-    #   self.ui.lcd_number.display(WORK_UNIT_TIME_MIN)
         self.ui.lcd_number.display(self.work_unit_time_min)
 
 
     def countdown(self):
         self.ui.lcd_number.display(self.ui.lcd_number.intValue() - 1)
-        '''if (
-            self.ui.lcd_number.intValue() == 0
-            and self.task_count == CYCLES_UNTIL_LONG_BREAK
-        ):
-            # Long break
-            self.task_count = 0
-            self.task_break = False
-            self.ui.start_timer.setText("Start Long Break")
-            self.ui.lcd_number.setStyleSheet("color: red;")
-
-            self.ui.lcd_number.display(LONG_BREAK_TIME_MIN)
-            self.my_timer.disconnect()
-            playsound(self.alert_sound)
-            return'''
 
         if self.ui.lcd_number.intValue() == 0 and self.task_break in [True, None]: #previously elif
             # Regular Break code
@@ -74,11 +54,10 @@ class Timer(QDialog):
             self.ui.start_timer.setText("Start Break")
             self.ui.lcd_number.setStyleSheet("color: red;")
 
-        #   self.ui.lcd_number.display(5)
-        #   self.ui.lcd_number.display(self.short_break_time())
             self.ui.lcd_number.display(self.break_time)
             self.my_timer.disconnect()
             playsound(self.alert_sound)
+            self.change_allowed = True                          # allows change buttons to work after timer finishes
             return
 
         elif self.ui.lcd_number.intValue() == 0 and self.task_break is False:
@@ -88,31 +67,36 @@ class Timer(QDialog):
             self.ui.start_timer.setText("Start Timer")
             self.ui.lcd_number.setStyleSheet("color: black;")
 
-        #   self.ui.lcd_number.display(WORK_UNIT_TIME_MIN)
             self.ui.lcd_number.display(self.work_unit_time_min)
             self.my_timer.disconnect()
             playsound(self.alert_sound)
+            self.change_allowed = True
             return
+        
 
     def on_end_clicked(self):
         sys.exit()
 
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
-    #   self.my_timer.start(60000)  # 1 min in milliseconds
-        self.my_timer.start(500)
+        self.my_timer.start(60000)  # 1 min in milliseconds
+
+        self.change_allowed = False                             # change buttons will not work when timer is operating
 
     def on_change_clicked(self):
-        num, result = QInputDialog.getInt(self, 'Work Timer Length Input Dialog', 'Enter the work timer length:')
-        if result == True:
-            self.work_unit_time_min = num
-            self.ui.lcd_number.display(self.work_unit_time_min)
+        if self.change_allowed == True:
+            num, result = QInputDialog.getInt(self, 'Work Timer Length Input Dialog', 'Enter the work timer length:')       # popup window for user configuration
+            if result == True:
+                self.work_unit_time_min = num
+                self.ui.lcd_number.display(self.work_unit_time_min)
+            
 
     def on_break_clicked(self):
-        num, result = QInputDialog.getInt(self, 'Break Timer Length Input Dialog', 'Enter the break timer length:')
-        if result == True:
-            self.break_time = num
-            self.ui.lcd_number.display(self.break_time)
+        if self.change_allowed == True:
+            num, result = QInputDialog.getInt(self, 'Break Timer Length Input Dialog', 'Enter the break timer length:')
+            if result == True:
+                self.break_time = num
+                self.ui.lcd_number.display(self.break_time)
             
         
             
