@@ -17,8 +17,8 @@ from PyQt5 import QtCore
 from ui import Ui
 
 
-SECOND_MS = 1000
-SPEED_MULTIPLIER = 1  # [1 for normal speed]
+MINUTE_MS = 60000
+SPEED_MULTIPLIER = 100  # [1 for normal speed]
 
 
 class Timer(QDialog):
@@ -63,12 +63,16 @@ class Timer(QDialog):
 
     def countdown(self):
         time = self.ui.lcd_number.value()
-        minutes, seconds = self._countdown_time(int(time), round(time % 1, 2))
+        if time != 0.0:
+            minutes, seconds = self._countdown_time(int(time), round(time % 1, 2))
 
-        seconds = "{:.2f}".format((seconds))[1::]
-        self.ui.lcd_number.display(f"{minutes}{seconds}")
+            seconds = "{:.2f}".format((seconds))[1::]
+            self.ui.lcd_number.display(f"{minutes}{seconds}")
+        else:
+            minutes = 0.0
+            seconds = 0.0
 
-        if (minutes <= 0 and float(seconds) <= 0) and self.task_break in [
+        if (minutes == 0 and float(seconds) == 0) and self.task_break in [
             True,
             None,
         ]:  # previously elif
@@ -85,7 +89,7 @@ class Timer(QDialog):
             )
             return
 
-        elif (minutes <= 0 and float(seconds) <= 0) and self.task_break is False:
+        elif (minutes == 0 and float(seconds) == 0) and self.task_break is False:
             # Start task code
             self.task_break = True
             self.task_count += 1
@@ -104,7 +108,7 @@ class Timer(QDialog):
     def on_start_clicked(self):
         self.my_timer.timeout.connect(lambda: self.countdown())
         self.my_timer.start(
-            round(SECOND_MS / SPEED_MULTIPLIER)
+            round(MINUTE_MS / SPEED_MULTIPLIER)
         )  # 1 min in milliseconds
 
         self.change_allowed = (
