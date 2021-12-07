@@ -39,6 +39,15 @@ fails to install PyQt5:
 ```pip install -r requirements.txt```
 again.
 
+or try running Terminal in Rosetta 2 mode:
+
+1. Select Terminal in Finder (usually found in Utilities folder).
+2. Right click on Terminal and choose ```Duplicate```.
+3. Name the new Duplicate ```Terminal Rosetta2``` for good reference.
+4. Right click on ```Terminal Rosetta2``` and choose ```Get Info```.
+5. Choose ```Open using Rosetta``` in the popup window. 
+6. Follow the original steps ```1-5``` to get the program running.
+
 ## Testing
 
 To run tests, go to the root directory and run the command below. It will run through all the state changes. Given the fact that it fully tests the time required to step through everything these tests could take a while to run.
