@@ -32,6 +32,8 @@ class Timer(QDialog):
         self.ui.setupUi(self)
 
         self.change_allowed = True  # whether or not change buttons can be clicked
+        self.work_active = True    # whether or not work timer is active
+        self.break_active = True   # whether or not break timer is active
         self.break_time = 5
         self.work_unit_time_min = 20
         self.task_count = 1
@@ -75,11 +77,13 @@ class Timer(QDialog):
         if (minutes == 0 and float(seconds) == 0) and self.task_break in [
             True,
             None,
-        ]:  # previously elif
+        ]:  
             # Regular Break code
             self.task_break = False
             self.ui.start_timer.setText("Start Break")
             self.ui.lcd_number.setStyleSheet("color: red;")
+            self.break_active = True                            # enables change break time button, disables change work time button
+            self.work_active = False
 
             self.ui.lcd_number.display(f"{self.break_time}.00")
             self.my_timer.disconnect()
@@ -95,6 +99,8 @@ class Timer(QDialog):
             self.task_count += 1
             self.ui.start_timer.setText("Start Timer")
             self.ui.lcd_number.setStyleSheet("color: black;")
+            self.work_active = True                                 # enables change work time button, disables change break time button
+            self.break_active = False
 
             self.ui.lcd_number.display(f"{self.work_unit_time_min}.00")
             self.my_timer.disconnect()
@@ -118,7 +124,7 @@ class Timer(QDialog):
         )
 
     def on_change_clicked(self):
-        if self.change_allowed is True:
+        if self.change_allowed is True and self.work_active is True:
             num, result = QInputDialog.getInt(
                 self, "Work Timer Length Input Dialog", "Enter the work timer length:"
             )  # popup window for user configuration
@@ -127,7 +133,7 @@ class Timer(QDialog):
                 self.ui.lcd_number.display(self.work_unit_time_min)
 
     def on_break_clicked(self):
-        if self.change_allowed is True:
+        if self.change_allowed is True and self.break_active is True:
             num, result = QInputDialog.getInt(
                 self, "Break Timer Length Input Dialog", "Enter the break timer length:"
             )
