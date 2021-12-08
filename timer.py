@@ -1,21 +1,22 @@
 """
     File name: timer.py
-    Author: Andrew Free
-    Date created: -
-    Python Version: 3.6
-    Alert Sounds Credits: https://freesound.org/people/CGEffex/sounds/94678/
+    Author: Team Mac
+    Date created: 2021-12-08
+    Alert Sounds Credits: https://freesound.org
 """
 import sys
 from threading import Thread
 
-from playsound import playsound
 from PyQt5.QtWidgets import QDialog, QInputDialog, QApplication, QComboBox
 from PyQt5 import QtCore
+import pygame
 
 from ui import Ui
 
 
 SECOND_MS = 1000
+
+pygame.mixer.init()
 
 
 class Timer(QDialog):
@@ -34,7 +35,8 @@ class Timer(QDialog):
         self.break_time = 5
         self.work_unit_time_min = 20
         self.task_count = 1
-        self.speed_multiplier = 1  # [1 for normal speed]
+        self.speed_multiplier = 1000  # [1 for normal speed]
+        self.volume_level = 1.0
         self.alert_sound = None
         self.task_break = None
         self.my_timer = QtCore.QTimer()
@@ -43,6 +45,7 @@ class Timer(QDialog):
         self.ui.end_timer.clicked.connect(lambda: self.on_end_clicked())
         self.ui.change_timer.clicked.connect(lambda: self.on_change_clicked())
         self.ui.change_break.clicked.connect(lambda: self.on_break_clicked())
+        self.ui.change_volume.clicked.connect(lambda: self.on_volume_clicked())
 
         self.ui.lcd_number.display(f"{self.work_unit_time_min}.00")
 
@@ -51,7 +54,9 @@ class Timer(QDialog):
         t.start()
 
     def _sound(self):
-        playsound(f"./sounds/{self.alert_sound}")
+        self.alert_sound = pygame.mixer.Sound(f"./sounds/{self.alert_sound}")
+        self.alert_sound.set_volume(self.volume_level)
+        self.alert_sound.play()
 
     def _countdown_time(self, minutes, seconds):
         if seconds == 0.0:
@@ -141,6 +146,20 @@ class Timer(QDialog):
             if result is True:
                 self.break_time = num
                 self.ui.lcd_number.display(self.break_time)
+
+    def on_volume_clicked(self):
+        if self.change_allowed is True:
+            num, result = QInputDialog.getInt(
+                self,
+                "Volume Change",
+                "Select Volume Level",
+                int(self.volume_level * 10),
+                0,
+                10,
+                1,
+            )
+            if result is True:
+                self.volume_level = float(num / 10)
 
 
 if __name__ == "__main__":
