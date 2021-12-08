@@ -1,5 +1,5 @@
 # TimeFlo
-Copyright &copy; 2021 Andrew Free
+Copyright &copy; 2021 Team Mac
 
 TimeFlo is an implementation of a
 [Pomodoro&reg;](https://en.wikipedia.org/wiki/Pomodoro_Technique)-like
