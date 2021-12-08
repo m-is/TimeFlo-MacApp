@@ -13,6 +13,7 @@ from playsound import playsound
 from PyQt5.QtWidgets import QDialog, QInputDialog
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtCore
+from PyQt5.QtWidgets import QApplication, QWidget, QComboBox, QHBoxLayout
 
 from ui import Ui
 
@@ -29,7 +30,7 @@ class Timer(QDialog):
     def __init__(self):
         super(Timer, self).__init__()
         self.ui = Ui()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self, QComboBox)
 
         self.change_allowed = True  # whether or not change buttons can be clicked
         self.work_active = True    # whether or not work timer is active
@@ -66,7 +67,8 @@ class Timer(QDialog):
     def countdown(self):
         time = self.ui.lcd_number.value()
         if time != 0.0:
-            minutes, seconds = self._countdown_time(int(time), round(time % 1, 2))
+            minutes, seconds = self._countdown_time(
+                int(time), round(time % 1, 2))
 
             seconds = "{:.2f}".format((seconds))[1::]
             self.ui.lcd_number.display(f"{minutes}{seconds}")
@@ -77,12 +79,13 @@ class Timer(QDialog):
         if (minutes == 0 and float(seconds) == 0) and self.task_break in [
             True,
             None,
-        ]:  
+        ]:
             # Regular Break code
             self.task_break = False
             self.ui.start_timer.setText("Start Break")
             self.ui.lcd_number.setStyleSheet("color: red;")
-            self.break_active = True                            # enables change break time button, disables change work time button
+            # enables change break time button, disables change work time button
+            self.break_active = True
             self.work_active = False
 
             self.ui.lcd_number.display(f"{self.break_time}.00")
@@ -99,7 +102,8 @@ class Timer(QDialog):
             self.task_count += 1
             self.ui.start_timer.setText("Start Timer")
             self.ui.lcd_number.setStyleSheet("color: black;")
-            self.work_active = True                                 # enables change work time button, disables change break time button
+            # enables change work time button, disables change break time button
+            self.work_active = True
             self.break_active = False
 
             self.ui.lcd_number.display(f"{self.work_unit_time_min}.00")
@@ -112,6 +116,7 @@ class Timer(QDialog):
         sys.exit()
 
     def on_start_clicked(self):
+        self.alert_sound = self.ui.comboSounds.currentText()
         if not self.change_allowed:
             return
         self.my_timer.timeout.connect(lambda: self.countdown())
@@ -124,6 +129,7 @@ class Timer(QDialog):
         )
 
     def on_change_clicked(self):
+        self.alert_sound = self.ui.comboSounds.currentText()
         if self.change_allowed is True and self.work_active is True:
             num, result = QInputDialog.getInt(
                 self, "Work Timer Length Input Dialog", "Enter the work timer length:"
@@ -133,6 +139,7 @@ class Timer(QDialog):
                 self.ui.lcd_number.display(self.work_unit_time_min)
 
     def on_break_clicked(self):
+        self.alert_sound = self.ui.comboSounds.currentText()
         if self.change_allowed is True and self.break_active is True:
             num, result = QInputDialog.getInt(
                 self, "Break Timer Length Input Dialog", "Enter the break timer length:"
