@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtWidgets
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QComboBox, QHBoxLayout
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
 
 
@@ -33,14 +31,10 @@ class Ui(object):
         self.comboSounds = QComboBox(Dialog)
         self.comboSounds.setGeometry(QtCore.QRect(60, 300, 251, 141))
         self.comboSounds.setFixedSize(275, 50)
-        self.comboSounds.setFont(QFont('', 12))
+        self.comboSounds.setFont(QFont("", 12))
         self.comboSounds.setModel(self.model)
 
-        data = [
-            "analog_alarm.wav",
-            "stop_watch_alarm.wav",
-            "ringer.wav"
-        ]
+        data = ["analog_alarm.wav", "stop_watch_alarm.wav", "ringer.wav"]
 
         for sound in data:
             state = QStandardItem(sound)

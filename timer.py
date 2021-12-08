@@ -8,18 +8,14 @@
 import sys
 from threading import Thread
 
-
 from playsound import playsound
-from PyQt5.QtWidgets import QDialog, QInputDialog
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QDialog, QInputDialog, QApplication, QComboBox
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QWidget, QComboBox, QHBoxLayout
 
 from ui import Ui
 
 
 SECOND_MS = 1000
-SPEED_MULTIPLIER = 1  # [1 for normal speed]
 
 
 class Timer(QDialog):
@@ -33,12 +29,13 @@ class Timer(QDialog):
         self.ui.setupUi(self, QComboBox)
 
         self.change_allowed = True  # whether or not change buttons can be clicked
-        self.work_active = True    # whether or not work timer is active
-        self.break_active = True   # whether or not break timer is active
+        self.work_active = True  # whether or not work timer is active
+        self.break_active = True  # whether or not break timer is active
         self.break_time = 5
         self.work_unit_time_min = 20
         self.task_count = 1
-        self.alert_sound = "fog_alarm.wav"
+        self.speed_multiplier = 1  # [1 for normal speed]
+        self.alert_sound = None
         self.task_break = None
         self.my_timer = QtCore.QTimer()
 
@@ -54,7 +51,7 @@ class Timer(QDialog):
         t.start()
 
     def _sound(self):
-        playsound(self.alert_sound)
+        playsound(f"./sounds/{self.alert_sound}")
 
     def _countdown_time(self, minutes, seconds):
         if seconds == 0.0:
@@ -67,8 +64,7 @@ class Timer(QDialog):
     def countdown(self):
         time = self.ui.lcd_number.value()
         if time != 0.0:
-            minutes, seconds = self._countdown_time(
-                int(time), round(time % 1, 2))
+            minutes, seconds = self._countdown_time(int(time), round(time % 1, 2))
 
             seconds = "{:.2f}".format((seconds))[1::]
             self.ui.lcd_number.display(f"{minutes}{seconds}")
@@ -121,7 +117,7 @@ class Timer(QDialog):
             return
         self.my_timer.timeout.connect(lambda: self.countdown())
         self.my_timer.start(
-            round(SECOND_MS / SPEED_MULTIPLIER)
+            round(SECOND_MS / self.speed_multiplier)
         )  # 1 second in milliseconds
 
         self.change_allowed = (
@@ -129,7 +125,6 @@ class Timer(QDialog):
         )
 
     def on_change_clicked(self):
-        self.alert_sound = self.ui.comboSounds.currentText()
         if self.change_allowed is True and self.work_active is True:
             num, result = QInputDialog.getInt(
                 self, "Work Timer Length Input Dialog", "Enter the work timer length:"
@@ -139,7 +134,6 @@ class Timer(QDialog):
                 self.ui.lcd_number.display(self.work_unit_time_min)
 
     def on_break_clicked(self):
-        self.alert_sound = self.ui.comboSounds.currentText()
         if self.change_allowed is True and self.break_active is True:
             num, result = QInputDialog.getInt(
                 self, "Break Timer Length Input Dialog", "Enter the break timer length:"
