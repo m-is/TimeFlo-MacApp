@@ -16,7 +16,7 @@ class Ui(object):
         self.end_timer.setObjectName("endTimer")
 
         self.lcd_number = QtWidgets.QLCDNumber(Dialog)
-        self.lcd_number.setGeometry(QtCore.QRect(60, 40, 251, 141))
+        self.lcd_number.setGeometry(QtCore.QRect(60, 40, 281, 140))
         self.lcd_number.setObjectName("lcdNumber")
 
         self.change_volume = QtWidgets.QPushButton(Dialog)
@@ -33,8 +33,8 @@ class Ui(object):
 
         self.model = QStandardItemModel(Dialog)
         self.comboSounds = QComboBox(Dialog)
-        self.comboSounds.setGeometry(QtCore.QRect(60, 300, 251, 141))
-        self.comboSounds.setFixedSize(275, 50)
+        self.comboSounds.setGeometry(QtCore.QRect(40, 185, 150, 32))
+        # self.comboSounds.setFixedSize(275, 50)
         self.comboSounds.setFont(QFont("", 12))
         self.comboSounds.setModel(self.model)
 
