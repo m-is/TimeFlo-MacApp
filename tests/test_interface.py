@@ -1,57 +1,39 @@
-from timeflow.timer import (
-    Timer,
-    LONG_BREAK_TIME_MIN,
-    WORK_UNIT_TIME_MIN,
-    CYCLES_UNTIL_LONG_BREAK,
-)
-
+from timer import Timer, SECOND_MS
 from PyQt5 import QtCore
 
-AUDIO_ALERT_TIME_MILLISECONDS = 8000
-MAXIUM_SHORT_BREAK_TIME_MILLISECONDS = 600000
+# This buffer is needed because the test framework / UI takes a little longer
+# to respond than the exact MS that the timer lasts for
+BUFFER = 350
 
 
-def test_timer_flow(qtbot):
+def test_timer_flow(qtbot, monkeypatch):
     widget = Timer()
+    widget.speed_multiplier = 1000
     qtbot.addWidget(widget)
 
     def check_break_label():
         assert widget.ui.start_timer.text() == "Start Break"
 
-    def check_work_label():
+    def check_start_timer():
         assert widget.ui.start_timer.text() == "Start Timer"
 
-    def check_long_break_label():
-        assert widget.ui.start_timer.text() == "Start Long Break"
-
-    # Assert start condition
-    assert widget.ui.lcd_number.intValue() == WORK_UNIT_TIME_MIN
-
-    for x in range(CYCLES_UNTIL_LONG_BREAK - 1):
-        # Start unit of work and wait for break label
-        qtbot.mouseClick(widget.ui.start_timer, QtCore.Qt.LeftButton)
-        assert widget.ui.lcd_number.intValue() == WORK_UNIT_TIME_MIN
-        qtbot.waitUntil(
-            check_break_label,
-            timeout=(WORK_UNIT_TIME_MIN * 60000) + AUDIO_ALERT_TIME_MILLISECONDS,
-        )
-        # Start short break and check for work label
-        qtbot.mouseClick(widget.ui.start_timer, QtCore.Qt.LeftButton)
-        assert widget.ui.lcd_number.intValue() in range(5, 11)
-        qtbot.waitUntil(check_work_label, timeout=MAXIUM_SHORT_BREAK_TIME_MILLISECONDS)
-
-    # Start final unit of work for the cycle & Check for long break
+    check_start_timer()
+    start_work_timer_value = widget.ui.lcd_number.intValue()
+    assert start_work_timer_value == 20
+    finish_ms = (
+        (SECOND_MS * (start_work_timer_value * 60)) / widget.speed_multiplier
+    ) + BUFFER
     qtbot.mouseClick(widget.ui.start_timer, QtCore.Qt.LeftButton)
-    assert widget.ui.lcd_number.intValue() == WORK_UNIT_TIME_MIN
     qtbot.waitUntil(
-        check_long_break_label,
-        timeout=(WORK_UNIT_TIME_MIN * 60000) + AUDIO_ALERT_TIME_MILLISECONDS,
+        check_break_label, timeout=finish_ms,
     )
 
-    # return back to original state after a long break
+    break_timer_value = widget.ui.lcd_number.intValue()
+    assert break_timer_value == 5
+    finish_ms = (
+        (SECOND_MS * (break_timer_value * 60)) / widget.speed_multiplier
+    ) + BUFFER
     qtbot.mouseClick(widget.ui.start_timer, QtCore.Qt.LeftButton)
-    assert widget.ui.lcd_number.intValue() == WORK_UNIT_TIME_MIN
     qtbot.waitUntil(
-        check_work_label,
-        timeout=(LONG_BREAK_TIME_MIN * 60000) + AUDIO_ALERT_TIME_MILLISECONDS,
+        check_start_timer, timeout=finish_ms,
     )
