@@ -26,7 +26,7 @@ This document will help you get the dependencies installed and instruct the user
 ```pip install -r requirements.txt```
 5. Run the timer. This can also be bound to some hotkey using system sofware to make launching it eaiser. 
 ```python timer.py```
-6. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every minute. 
+6. A Qt window should pop up and you should be able to interact with the timer from there. When starting any session the interface will update every second. 
 
 M1 Mac users: If
 ```pip install -r requirements.txt```
