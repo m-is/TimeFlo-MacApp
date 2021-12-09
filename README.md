@@ -19,7 +19,7 @@ This document will help you get the dependencies installed and instruct the user
 1. Create a python virtual enviroment.
 ```python3 -m venv env```
 2. Activate the enviroment.
-```source ./env/bin/activate```
+```source ./env/bin/activate``` For Windows OS: ```source ./env/Scripts/activate```
 3. Upgrade pip
 ```pip install --upgrade pip```
 4. Install the requirements 
