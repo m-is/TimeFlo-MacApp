@@ -35,7 +35,7 @@ class Timer(QDialog):
         self.break_time = 5
         self.work_unit_time_min = 20
         self.task_count = 1
-        self.speed_multiplier = 1000  # [1 for normal speed]
+        self.speed_multiplier = 1  # [1 for normal speed]
         self.volume_level = 1.0
         self.alert_sound = None
         self.task_break = None
